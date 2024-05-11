@@ -17,7 +17,7 @@ app.set( 'view engine', 'ejs' );
 
 
 app.get( '/', function( req, res ){
-  api.getItems().then( function( r ){
+  db.readItems().then( function( r ){
     res.render( 'index', r );
   });
 });
@@ -26,7 +26,8 @@ app.post( '/message', function( req, res ){
   res.contentType( 'application/json; charset=utf-8' );
 
   var item = req.body;
-  api.createItem( item ).then( function( r ){
+  //console.log( {item} );
+  db.createItem( item ).then( function( r ){
     res.redirect( '/' );
   });
 });
