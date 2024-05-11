@@ -72,7 +72,9 @@ function showEditModal(){
       <%= items[i].body %>
     </div>
     <div class="item-created-div">
+      <span title="Resolved: <%= items[i].__mycaptcha_formula__ %> in <%= items[i].__mycaptcha_time__ %> sec.">
       <%= items[i].created %>
+      </span>
     </div>
   </div>
 <% } %>
