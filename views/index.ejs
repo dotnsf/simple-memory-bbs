@@ -8,8 +8,10 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
 <link href="//use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet"/>
 
-<script src="https://dotnsf.github.io/matchbo-captcha/matchbo-captcha.js"></script>
-<link href="https://dotnsf.github.io/matchbo-captcha/matchbo-captcha.css" rel="stylesheet"/>
+<script src="https://dotnsf.github.io/captcha.nsf/captcha.nsf.js"></script>
+<link href="https://dotnsf.github.io/captcha.nsf/captcha.nsf.css" rel="stylesheet"/>
+<script src="https://dotnsf.github.io/captcha.nsf/jquery.jqpuzzle.min.js"></script>
+<link href="https://dotnsf.github.io/captcha.nsf/jquery.jqpuzzle.css" rel="stylesheet"/>
 
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -40,11 +42,33 @@ html, body{
 </style>
 <script>
 $(function(){
-  $('#modal-footer').mycaptcha({});
+  var mode = getParam( 'mode' );
+  $('#modal-footer').mycaptcha({ mode: mode });
 });
 
 function showEditModal(){
   $('#editModal').modal();
+}
+
+function getParam( name, url ){
+  if( !url ) url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if( !results ){
+    var s = window.location.search;
+    if( s ){
+      s = s.substr( 1 );
+    }
+    if( s ){
+      return s;
+    }else{
+      return null;
+    }
+  }else{
+    if( !results[2] ) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  } 
 }
 </script>
 </head>
