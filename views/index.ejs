@@ -42,33 +42,29 @@ html, body{
 </style>
 <script>
 $(function(){
-  var mode = getParam( 'mode' );
-  $('#modal-footer').mycaptcha({ mode: mode });
 });
 
 function showEditModal(){
   $('#editModal').modal();
+
+  var mode = getParam( 'mode' );
+  $('#modal-footer').mycaptcha({ mode: mode });
 }
 
 function getParam( name, url ){
-  if( !url ) url = window.location.href;
-  name = name.replace(/[\[\]]/g, "\\$&");
-  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-      results = regex.exec(url);
-  if( !results ){
-    var s = window.location.search;
-    if( s ){
-      s = s.substr( 1 );
+  var r = null;
+  if( !url ) url = window.location.search;
+  if( url ){ url = url.substring( 1 ); }
+  if( url ){
+    var params = url.split( '&' );
+    for( var i = 0; i < params.length && !r; i ++ ){
+      var tmp = params[i].split( '=' );
+      if( tmp[0] == name ){
+        r = tmp[1];
+      }
     }
-    if( s ){
-      return s;
-    }else{
-      return null;
-    }
-  }else{
-    if( !results[2] ) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-  } 
+  }
+  return r;
 }
 </script>
 </head>
