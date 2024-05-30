@@ -34,7 +34,10 @@ app.post( '/message', function( req, res ){
   res.contentType( 'application/json; charset=utf-8' );
 
   var item = req.body;
-  //console.log( {item} );
+  console.log( {item} ); //. { username: 'username', body: 'body', __mycaptcha_formula__: '89+4+8=93', __mycaptcha_time__: '136.162' }
+  if( item && item.__mycaptcha_time__ && typeof item.__mycaptcha_time__ == 'string ' ){
+    item.__mycaptcha_time__ = parseFloat( item.__mycaptcha_time__ );
+  }
   db.createItem( item ).then( function( r ){
     res.redirect( '/' );
   });
