@@ -152,7 +152,7 @@ api.readItem = async function( item_id ){
   });
 };
 
-api.readItems = async function( limit, start ){
+api.readItems = async function( limit, offset ){
   return new Promise( async ( resolve, reject ) => {
     if( pg ){
       conn = await pg.connect();
@@ -171,12 +171,12 @@ api.readItems = async function( limit, start ){
               console.log( err );
               resolve( { status: false, error: err } );
             }else{
-              resolve( { status: true, results: result.rows } );
+              resolve( { status: true, items: result.rows } );
             }
           });
         }catch( e ){
           console.log( e );
-          resolve( { status: false, error: err } );
+          resolve( { status: false, error: e } );
         }finally{
           if( conn ){
             conn.release();
@@ -212,12 +212,12 @@ api.updateItem = async function( item ){
                   console.log( err );
                   resolve( { status: false, error: err } );
                 }else{
-                  resolve( { status: true, result: result } );
+                  resolve( { status: true, item: result } );
                 }
               });
             }catch( e ){
               console.log( e );
-              resolve( { status: false, error: err } );
+              resolve( { status: false, error: e } );
             }finally{
               if( conn ){
                 conn.release();
@@ -250,12 +250,12 @@ api.deleteItem = async function( item_id ){
                 console.log( err );
                 resolve( { status: false, error: err } );
               }else{
-                resolve( { status: true, result: result } );
+                resolve( { status: true } );
               }
             });
           }catch( e ){
             console.log( e );
-            resolve( { status: false, error: err } );
+            resolve( { status: false, error: e } );
           }finally{
             if( conn ){
               conn.release();
@@ -284,12 +284,12 @@ api.deleteItems = async function(){
               console.log( err );
               resolve( { status: false, error: err } );
             }else{
-              resolve( { status: true, result: result } );
+              resolve( { status: true } );
             }
           });
         }catch( e ){
           console.log( e );
-          resolve( { status: false, error: err } );
+          resolve( { status: false, error: e } );
         }finally{
           if( conn ){
             conn.release();

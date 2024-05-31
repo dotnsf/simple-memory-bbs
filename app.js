@@ -5,7 +5,8 @@ var express = require( 'express' ),
     ejs = require( 'ejs' ),
     app = express();
 
-var db = require( './db/db_no.js' );
+//var db = require( './db/db_no.js' );
+var db = require( './db/db_postgres.js' );
 //app.use( '/api/db', db );
 
 app.use( bodyParser.urlencoded( { extended: true } ) );
@@ -38,6 +39,11 @@ app.post( '/message', function( req, res ){
   if( item && item.__mycaptcha_time__ && typeof item.__mycaptcha_time__ == 'string ' ){
     item.__mycaptcha_time__ = parseFloat( item.__mycaptcha_time__ );
   }
+
+  item.mode = item.__mycaptcha_mode__;
+  item.formula = item.__mycaptcha_formula__;
+  item.msec = item.__mycaptcha_time__ * 1000;
+
   db.createItem( item ).then( function( r ){
     res.redirect( '/' );
   });
