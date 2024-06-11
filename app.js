@@ -40,6 +40,7 @@ app.post( '/message', function( req, res ){
     item.__mycaptcha_time__ = parseFloat( item.__mycaptcha_time__ );
   }
 
+  //. DB 用に変換
   item.mode = item.__mycaptcha_mode__;
   item.formula = item.__mycaptcha_formula__;
   item.msec = item.__mycaptcha_time__ * 1000;
