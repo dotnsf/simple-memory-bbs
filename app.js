@@ -21,9 +21,15 @@ app.get( '/', function( req, res ){
   db.readItems().then( function( r ){
     if( r && r.items ){
       for( var i = 0; i < r.items.length; i ++ ){
+        var m = r.items[i].msec;
+        if( typeof m == 'string' ){ r.items[i].msec = parseInt( m ); }
+        r.items[i].sec = r.items[i].msec / 1000;
         var c = r.items[i].created;
         if( typeof c == 'string' ){ c = parseInt( c ); }
         r.items[i].created = datetime2string( c );
+        var u = r.items[i].updated;
+        if( typeof u == 'string' ){ u = parseInt( u ); }
+        r.items[i].updated = datetime2string( u );
       }
     }
     console.log( JSON.stringify( r, null, 2 ) );

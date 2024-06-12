@@ -70,7 +70,7 @@ function getParam( name, url ){
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">
-    Simple-Memory-BBS
+    サンプル掲示板
   </a>
   <ul class="navbar-nav mr-auto">
   </ul>
@@ -91,7 +91,7 @@ function getParam( name, url ){
       <%= items[i].body %>
     </div>
     <div class="item-created-div">
-      <span title="Resolved: <%= items[i].__mycaptcha_formula__ %> in <%= items[i].__mycaptcha_time__ %> sec.">
+      <span title="Resolved: <%= items[i].formula %> in <%= items[i].msec / 1000 %> sec.">
       <%= items[i].created %>
       </span>
     </div>
